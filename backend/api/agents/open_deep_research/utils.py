@@ -238,8 +238,8 @@ def perplexity_search(search_queries, key_rotator: APIKeyRotator):
         response = requests.post(
             "https://api.perplexity.ai/chat/completions",
             headers=headers,
-            json=payload
-        )
+            json=payload, 
+        timeout=60)
         response.raise_for_status()
 
         data = response.json()
