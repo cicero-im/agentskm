@@ -287,7 +287,7 @@ class QueryRouterService:
         }
 
         try:
-            response = requests.post(self.api_url, headers=headers, json=payload)
+            response = requests.post(self.api_url, headers=headers, json=payload, timeout=60)
             response.raise_for_status()
             json_response = response.json()
             
