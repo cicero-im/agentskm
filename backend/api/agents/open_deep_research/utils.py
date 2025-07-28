@@ -2,7 +2,6 @@
 import os
 import asyncio
 import requests
-import random
 import time
 from typing import List, Dict, Any
 from collections import deque
@@ -11,6 +10,7 @@ import httpx
 from tavily import TavilyClient, AsyncTavilyClient
 from .state import Section
 from langsmith import traceable
+import secrets
 
 # Initialize clients
 tavily_client = TavilyClient()
@@ -53,7 +53,7 @@ class APIKeyRotator:
             raise ValueError(f"No API keys found with prefix {self.env_var_prefix}")
             
         # Shuffle the keys to distribute usage more evenly
-        random.shuffle(self.keys)
+        secrets.SystemRandom().shuffle(self.keys)
         self.key_queue = deque(self.keys)
             
     def get_next_key(self) -> str:
@@ -70,7 +70,7 @@ class APIKeyRotator:
         """Get a random API key from the available keys."""
         if not self.keys:
             raise ValueError("No API keys available")
-        return random.choice(self.keys)
+        return secrets.choice(self.keys)
 
 def deduplicate_and_format_sources(search_response, max_tokens_per_source, include_raw_content=True):
     """
