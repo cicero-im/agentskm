@@ -113,7 +113,7 @@ async def lifespan(app: FastAPI):
 
 def get_user_id_from_token(token: HTTPAuthorizationCredentials) -> str:
     try:
-        decoded_token = jwt.decode(token.credentials, options={"verify_signature": False})
+        decoded_token = jwt.decode(token.credentials, options={"verify_signature": True})
         return decoded_token.get("sub", "anonymous")
     except Exception as e:
         logger.error(f"Error decoding token: {str(e)}")
