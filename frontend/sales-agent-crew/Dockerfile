@@ -28,7 +28,7 @@ ENV VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY
 RUN npm run build
 
 # Stage 2: Serve the application
-FROM nginx:alpine
+FROM nginx:1.29.4-alpine3.23
 
 # Install OpenSSL and gettext for envsubst
 RUN apk add --no-cache openssl gettext
